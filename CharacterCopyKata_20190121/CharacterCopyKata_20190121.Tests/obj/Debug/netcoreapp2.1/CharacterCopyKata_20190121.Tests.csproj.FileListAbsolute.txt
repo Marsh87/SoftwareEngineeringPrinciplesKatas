@@ -1,0 +1,14 @@
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\bin\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.deps.json
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\bin\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.dll
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\obj\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.csproj.CoreCompileInputs.cache
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\obj\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.AssemblyInfoInputs.cache
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\obj\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.AssemblyInfo.cs
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\obj\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.csprojAssemblyReference.cache
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\bin\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.pdb
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\obj\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.dll
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\obj\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.pdb
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\bin\Debug\netcoreapp2.1\CharacterCopyKata_20190121.dll
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\bin\Debug\netcoreapp2.1\CharacterCopyKata_20190121.pdb
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\obj\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.csproj.CopyComplete
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\bin\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.runtimeconfig.json
+C:\Users\mahesh.CHILLI\source\repos\CharacterCopyKata_20190121\CharacterCopyKata_20190121.Tests\bin\Debug\netcoreapp2.1\CharacterCopyKata_20190121.Tests.runtimeconfig.dev.json
