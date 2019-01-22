@@ -11,7 +11,7 @@ namespace CharacterCopyKata_20190121.Tests
     public class CopierTests
     {
         [Test]
-        public void Copy_GivenSourceReturnsWithCharacterDestinationShouldBeCalledWithCharacter()
+        public void Copy_GivenSourceReturnsWithCharacte_ShouldCallDestinationWithCharacter()
         {
             //--------------- Set up test pack --------------------
             var source = Substitute.For<ISource>();
@@ -23,6 +23,21 @@ namespace CharacterCopyKata_20190121.Tests
             sut.Copy();
             // --------------- Test Result ------------------------
             destination.Received().WriteChar(character);
+        }
+
+        [Test]
+        public void Copy_GivenSourceReturnsNewLineDestination_ShouldNotCallDestinationWithNewLine()
+        {
+            //--------------- Set up test pack --------------------
+            var source = Substitute.For<ISource>();
+            var destination = Substitute.For<IDestination>();
+            var character = '\n';
+            source.ReadChar().Returns(character);
+            var sut = new  Copier(source,destination);
+            //---------------- Execute Test ----------------------
+            sut.Copy();
+            // --------------- Test Result ------------------------
+            destination.DidNotReceiveWithAnyArgs().WriteChar(Arg.Any<char>());
         }
     }
 }

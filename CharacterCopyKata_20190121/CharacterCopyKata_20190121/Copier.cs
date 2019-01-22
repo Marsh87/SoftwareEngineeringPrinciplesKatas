@@ -17,7 +17,20 @@ namespace CharacterCopyKata_20190121
 
         public void Copy()
         {
-            throw new NotImplementedException();
+            var characterFromSource =  _source.ReadChar();
+            var newLine = '\n';
+            if (CheckIfChatacterIsNewLine(characterFromSource, newLine)) return;
+            _destination.WriteChar(characterFromSource);
+        }
+
+        private static bool CheckIfChatacterIsNewLine(char characterFromSource, char newLine)
+        {
+            if (characterFromSource.Equals(newLine))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

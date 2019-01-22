@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mahesh.CHILLI\\source\\repos\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121.csproj",
+      "projectUniqueName": "F:\\SoftwareEngineeringPrinciplesKatas\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121.csproj",
       "projectName": "CharacterCopyKata_20190121",
-      "projectPath": "C:\\Users\\mahesh.CHILLI\\source\\repos\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121.csproj",
+      "projectPath": "F:\\SoftwareEngineeringPrinciplesKatas\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121.csproj",
       "packagesPath": "C:\\Users\\mahesh.CHILLI\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mahesh.CHILLI\\source\\repos\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121\\obj\\",
+      "outputPath": "F:\\SoftwareEngineeringPrinciplesKatas\\CharacterCopyKata_20190121\\CharacterCopyKata_20190121\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
