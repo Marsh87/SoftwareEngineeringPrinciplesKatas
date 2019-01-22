@@ -11,7 +11,7 @@ namespace CharacterCopyKata_20190121.Tests
     public class CopierTests
     {
         [Test]
-        public void Copy_GivenSourceReturnsWithCharacte_ShouldCallDestinationWithCharacter()
+        public void Copy_GivenSourceReturnsWithCharacter_ShouldCallDestinationWithCharacter()
         {
             //--------------- Set up test pack --------------------
             var source = Substitute.For<ISource>();
@@ -26,7 +26,7 @@ namespace CharacterCopyKata_20190121.Tests
         }
 
         [Test]
-        public void Copy_GivenSourceReturnsNewLineDestination_ShouldNotCallDestinationWithNewLine()
+        public void Copy_GivenSourceReturnsNewLine_ShouldNotCallDestinationWithNewLine()
         {
             //--------------- Set up test pack --------------------
             var source = Substitute.For<ISource>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CharacterCopyKata_20190121
@@ -19,17 +20,16 @@ namespace CharacterCopyKata_20190121
         {
             var characterFromSource =  _source.ReadChar();
             var newLine = '\n';
-            if (CheckIfChatacterIsNewLine(characterFromSource, newLine)) return;
+            if (SourceCharacterIsNewLine(characterFromSource, newLine)) return;
             _destination.WriteChar(characterFromSource);
         }
 
-        private static bool CheckIfChatacterIsNewLine(char characterFromSource, char newLine)
+        private static bool SourceCharacterIsNewLine(char characterFromSource, char newLine)
         {
             if (characterFromSource.Equals(newLine))
             {
                 return true;
             }
-
             return false;
         }
     }
