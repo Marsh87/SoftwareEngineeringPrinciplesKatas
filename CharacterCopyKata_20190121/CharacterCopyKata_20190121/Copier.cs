@@ -22,6 +22,8 @@ namespace CharacterCopyKata_20190121
             var newLine = '\n';
             if (SourceCharacterIsNewLine(characterFromSource, newLine)) return;
             _destination.WriteChar(characterFromSource);
+            var charactersFromSource = _source.ReadChars(3);
+            _destination.WriteChars(charactersFromSource.ToCharArray());
         }
 
         private static bool SourceCharacterIsNewLine(char characterFromSource, char newLine)

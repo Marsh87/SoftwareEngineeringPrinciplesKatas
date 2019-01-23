@@ -39,5 +39,21 @@ namespace CharacterCopyKata_20190121.Tests
             // --------------- Test Result ------------------------
             destination.DidNotReceiveWithAnyArgs().WriteChar(Arg.Any<char>());
         }
+
+        [Ignore("Need to find determine if this is the right test")]
+        [Test]
+        public void Copy_GivenSourceReturnsWithString_ShouldCallDestinationWithMultipleCharacters()
+        {
+            //--------------- Set up test pack --------------------
+            var source = Substitute.For<ISource>();
+            var destination = Substitute.For<IDestination>();
+            var characters = "ABC";
+            source.ReadChars(Arg.Any<int>()).Returns(characters);
+            var sut = new  Copier(source,destination);
+            //---------------- Execute Test ----------------------
+            sut.Copy();
+            // --------------- Test Result ------------------------
+            destination.Received().WriteChars(Arg.Is(characters.ToCharArray()));
+        }
     }
 }
