@@ -191,13 +191,9 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-buildreports/
-DMASA/.vs/
-DMASA/DMASA.DataConstants/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 *.csproj.user
 
 [Ii]gnore/
-/DMASA/DMASA/UploadedVerificationFiles
 *.etl
 *.csproj.user
 .vs/**/*
