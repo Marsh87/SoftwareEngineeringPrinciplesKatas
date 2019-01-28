@@ -11,16 +11,57 @@ namespace CharacterCopyKata_20190121.Tests
     public class CopierTests
     {
         [Test]
-        public void Copy_GivenSourceReturnsWithCharacterDestinationShouldBeCalledWithCharacter()
+        public void Copy_GivenSourceReturnsWithSingleCharacterDestination_ShouldBeCalledWithCharacter()
         {
             //--------------- Set up test pack --------------------
-            var source = CreateSource(out var character);
+            var character = 'A';
+            var source = CreateSource(character);
             var destination = CreateDestination();
             var sut = CreateCopier(source, destination);
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
             destination.Received().WriteChar(character);
+        }
+
+        [Test]
+        public void Copy_GivenSourceReturnsMultipleCharactersDestination_ShouldBeCalledWithCharacterOneAtATime()
+        {
+            //--------------- Set up test pack --------------------
+            var firstCharacter = 'A';
+            var secondCharacter = 'B';
+            var thirdCharacter = 'C';
+            var source = Substitute.For<ISource>();
+            source.ReadChar().Returns(firstCharacter);
+            source.ReadChar().Returns(secondCharacter);
+            source.ReadChar().Returns(thirdCharacter);
+            var destination = CreateDestination();
+            var sut = CreateCopier(source, destination);
+            //---------------- Execute Test ----------------------
+            sut.Copy();
+            // --------------- Test Result ------------------------
+            destination.Received().WriteChar(firstCharacter);
+            destination.Received().WriteChar(secondCharacter);
+            destination.Received().WriteChar(thirdCharacter);
+        }
+
+        [Test]
+        public void Copy_GivenSourceReturnsMultipleCharactersWithNewLineDestination_ShouldOnlyBeCalledWithCharactersBeforeNewLine()
+        {
+            //--------------- Set up test pack --------------------
+            var firstCharacter = 'A';
+            var secondCharacter = '\n';
+            var thirdCharacter = 'C';
+            var source = Substitute.For<ISource>();
+            source.ReadChar().Returns(firstCharacter, secondCharacter, thirdCharacter);
+            var destination = CreateDestination();
+            var sut = CreateCopier(source, destination);
+            //---------------- Execute Test ----------------------
+            sut.Copy();
+            // --------------- Test Result ------------------------
+            destination.Received().WriteChar(firstCharacter);
+            destination.DidNotReceive().WriteChar(secondCharacter);
+            destination.DidNotReceive().WriteChar(thirdCharacter);
         }
 
         private static Copier CreateCopier(ISource source, IDestination destination)
@@ -35,10 +76,9 @@ namespace CharacterCopyKata_20190121.Tests
             return destination;
         }
 
-        private static ISource CreateSource(out char character)
+        private static ISource CreateSource(char character)
         {
             var source = Substitute.For<ISource>();
-            character = 'A';
             source.ReadChar().Returns(character);
             return source;
         }
