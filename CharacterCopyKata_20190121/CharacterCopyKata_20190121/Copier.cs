@@ -17,8 +17,11 @@ namespace CharacterCopyKata_20190121
 
         public void Copy()
         {
-            var characterFromSource = _source.ReadChar();
-            _destination.WriteChar(characterFromSource);
+            while (!_source.ReadChar().Equals('\n'))
+            {
+                var characterFromSource = _source.ReadChar();
+                _destination.WriteChar(characterFromSource);
+            }
         }
     }
 }

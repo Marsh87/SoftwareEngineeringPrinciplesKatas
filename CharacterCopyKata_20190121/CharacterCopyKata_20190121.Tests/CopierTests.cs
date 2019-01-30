@@ -25,27 +25,25 @@ namespace CharacterCopyKata_20190121.Tests
         }
 
         [Test]
-        public void Copy_GivenSourceReturnsMultipleCharactersDestination_ShouldBeCalledWithCharacterOneAtATime()
+        public void Copy_GivenSourceReturnsMultipleCharactersDestination_ShouldBeCalledWithCharacterOneAtATimeUntilNewline()
         {
             //--------------- Set up test pack --------------------
             var firstCharacter = 'A';
             var secondCharacter = 'B';
-            var thirdCharacter = 'C';
+            var newLine = '\n';
             var source = Substitute.For<ISource>();
-            source.ReadChar().Returns(firstCharacter);
-            source.ReadChar().Returns(secondCharacter);
-            source.ReadChar().Returns(thirdCharacter);
+            source.ReadChar().Returns(firstCharacter, secondCharacter, newLine);
             var destination = CreateDestination();
             var sut = CreateCopier(source, destination);
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
-            destination.Received().WriteChar(firstCharacter);
+            destination.WriteChar(firstCharacter);
             destination.Received().WriteChar(secondCharacter);
-            destination.Received().WriteChar(thirdCharacter);
+            destination.DidNotReceive().WriteChar(newLine);
         }
 
-        [Test]
+        /*[Test]
         public void Copy_GivenSourceReturnsMultipleCharactersWithNewLineDestination_ShouldOnlyBeCalledWithCharactersBeforeNewLine()
         {
             //--------------- Set up test pack --------------------
@@ -62,7 +60,7 @@ namespace CharacterCopyKata_20190121.Tests
             destination.Received().WriteChar(firstCharacter);
             destination.DidNotReceive().WriteChar(secondCharacter);
             destination.DidNotReceive().WriteChar(thirdCharacter);
-        }
+        }*/
 
         private static Copier CreateCopier(ISource source, IDestination destination)
         {
