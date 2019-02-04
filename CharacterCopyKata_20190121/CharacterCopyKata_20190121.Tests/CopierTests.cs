@@ -38,7 +38,7 @@ namespace CharacterCopyKata_20190121.Tests
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
-            destination.WriteChar(firstCharacter);
+            destination.WriteChar(firstCharacter); // Review, is there a reason you called the write char here? Surely this is the responsibility of the Copier?
             destination.Received().WriteChar(secondCharacter);
             destination.DidNotReceive().WriteChar(newLine);
         }
