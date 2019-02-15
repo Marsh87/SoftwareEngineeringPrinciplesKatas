@@ -11,74 +11,58 @@ namespace CharacterCopyKata_20190121.Tests
     public class CopierTests
     {
         [Test]
-        public void Copy_GivenSourceReturnsWithSingleCharacterDestination_ShouldBeCalledWithCharacter()
-        {
-            //--------------- Set up test pack --------------------
-            var character = 'A';
-            var source = CreateSource(character);
-            var destination = CreateDestination();
-            var sut = CreateCopier(source, destination);
-            //---------------- Execute Test ----------------------
-            sut.Copy();
-            // --------------- Test Result ------------------------
-            destination.Received().WriteChar(character);
-        }
-
-        [Test]
-        public void Copy_GivenSourceReturnsMultipleCharactersDestination_ShouldBeCalledWithCharacterOneAtATimeUntilNewline()
+        public void Copy_GivenSourceReturnsMultipleCharacters_ShouldCallWriteCharWithAllCharactersUntilNewLineIsReturned()
         {
             //--------------- Set up test pack --------------------
             var firstCharacter = 'A';
             var secondCharacter = 'B';
             var newLine = '\n';
-            var source = Substitute.For<ISource>();
+            var source = CreateSource();
             source.ReadChar().Returns(firstCharacter, secondCharacter, newLine);
             var destination = CreateDestination();
             var sut = CreateCopier(source, destination);
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
-            destination.Received().WriteChar(firstCharacter);
-            destination.Received().WriteChar(secondCharacter);
+            destination.Received(1).WriteChar(firstCharacter);
+            destination.Received(1).WriteChar(secondCharacter);
             destination.DidNotReceive().WriteChar(newLine);
         }
 
-        /*[Test]
-        public void Copy_GivenSourceReturnsMultipleCharactersWithNewLineDestination_ShouldOnlyBeCalledWithCharactersBeforeNewLine()
+        [Test]
+        public void Copy_GivenSourceReturnsMultipleCharacters_ShouldNotCallWriteCharWithCharacterThatWasReturnedAfterNewLineWasReturned()
         {
             //--------------- Set up test pack --------------------
             var firstCharacter = 'A';
-            var secondCharacter = '\n';
-            var thirdCharacter = 'C';
-            var source = Substitute.For<ISource>();
-            source.ReadChar().Returns(firstCharacter, secondCharacter, thirdCharacter);
+            var secondCharacter = 'B';
+            var newLine = '\n';
+            var characterAfterNewLine = 'C';
+            var source = CreateSource();
+            source.ReadChar().Returns(firstCharacter, secondCharacter, newLine, characterAfterNewLine);
             var destination = CreateDestination();
             var sut = CreateCopier(source, destination);
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
-            destination.Received().WriteChar(firstCharacter);
-            destination.DidNotReceive().WriteChar(secondCharacter);
-            destination.DidNotReceive().WriteChar(thirdCharacter);
-        }*/
+            destination.Received(1).WriteChar(firstCharacter);
+            destination.Received(1).WriteChar(secondCharacter);
+            destination.DidNotReceive().WriteChar(newLine);
+            destination.DidNotReceive().WriteChar(characterAfterNewLine);
+        }
+
+        private static ISource CreateSource()
+        {
+           return Substitute.For<ISource>();
+        }
 
         private static Copier CreateCopier(ISource source, IDestination destination)
         {
-            var sut = new Copier(source, destination);
-            return sut;
+            return new Copier(source, destination);
         }
 
         private static IDestination CreateDestination()
         {
-            var destination = Substitute.For<IDestination>();
-            return destination;
-        }
-
-        private static ISource CreateSource(char character)
-        {
-            var source = Substitute.For<ISource>();
-            source.ReadChar().Returns(character);
-            return source;
+           return  Substitute.For<IDestination>();
         }
     }
 }
