@@ -18,12 +18,17 @@ namespace CharacterCopyKata_20190121.Tests
             var secondCharacter = 'B';
             var newLine = '\n';
             var source = CreateSource();
+            // TODO why is the setup of the substitute being done outside of the factory method that creates it? 
+            //      This makes tests brittle as all of them now have knowledge of function signature, 
+            //      moving that setup into the factory function consolidated that knowledge in one place.
             source.ReadChar().Returns(firstCharacter, secondCharacter, newLine);
             var destination = CreateDestination();
             var sut = CreateCopier(source, destination);
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
+            // TODO these asserts suffer from the same issue as mentioned above, all tests now have knowledge of the
+            //       WriteChar function signature, this makes them more brittle. Can you think of a way around this?
             destination.Received(1).WriteChar(firstCharacter);
             destination.Received(1).WriteChar(secondCharacter);
             destination.DidNotReceive().WriteChar(newLine);
