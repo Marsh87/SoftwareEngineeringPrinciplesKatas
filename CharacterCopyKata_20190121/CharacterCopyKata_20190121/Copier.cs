@@ -19,11 +19,12 @@ namespace CharacterCopyKata_20190121
 
         public void Copy()
         {
-            var characterFromSource = GetCharacterFromSource();
+            // TODO there are still 2 concepts in this code that are not fully encapsulated by the methods you refactored out, see below:
+            var characterFromSource = GetCharacterFromSource(); // <== read
             while (CharacterIsNotNewLine(characterFromSource))
             {
-                WriterCharacterToDestination(characterFromSource);
-                characterFromSource = GetCharacterFromSource();
+                WriterCharacterToDestination(characterFromSource); // <== read
+                characterFromSource = GetCharacterFromSource(); // <== write
             }
         }
 

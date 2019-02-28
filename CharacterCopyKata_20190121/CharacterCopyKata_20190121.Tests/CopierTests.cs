@@ -1,4 +1,5 @@
-﻿using System;
+﻿// TODO some of these usings are not used.
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Transactions;
@@ -8,14 +9,18 @@ using PeanutButter.RandomGenerators;
 
 namespace CharacterCopyKata_20190121.Tests
 {
+    // TODO all of the asserts in this class are behaviour based, is there a way you can move them to be state based?
     [TestFixture]
     public class CopierTests
     {
+        // TODO is there a way you can get this re-usability without introducing class level state?
+        //       class level state can introduce interactions between tests and just generally makes tests more brittle.
         const char FirstCharacter = 'A';
         const  char SecondCharacter = 'B';
         const  char ThirdCharacter = 'C';
         const  char NewLine = '\n';
 
+        // TODO why not use random characters in this test as you have in the others
         [Test]
         public void Copy_GivenSourceReturnsOneCharacterBeforeNewLine_ShouldCallWriteCharWithCharacterBeforeNewline()
         {
@@ -30,6 +35,7 @@ namespace CharacterCopyKata_20190121.Tests
             ExpectedDestinationCallForNewLine(destination);
         }
 
+        // TODO why not use random characters in this test as you have in the others
         [Test]
         public void Copy_GivenSourceReturnsTwoCharactersBeforeNewLine_ShouldCallWriteCharWithAllCharactersBeforeNewline()
         {
