@@ -12,7 +12,6 @@ namespace CharacterCopyKata_20190121
         const char NewLine = '\n';
         public Copier(ISource source, IDestination destination)
         {
-            // TODO the null exception code is not tested. I don't mind if it is or isn't there, but if you choose to have it it should be tested.
             _source = source ?? throw new ArgumentNullException(nameof(source));
             _destination = destination ?? throw new ArgumentNullException(nameof(destination));
         }
