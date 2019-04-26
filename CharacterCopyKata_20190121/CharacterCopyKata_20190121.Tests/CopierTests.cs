@@ -1,6 +1,7 @@
 ﻿// TODO some of these usings are not used.
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Transactions;
 using NSubstitute;
@@ -12,12 +13,12 @@ namespace CharacterCopyKata_20190121.Tests
     // TODO all of the asserts in this class are behaviour based, is there a way you can move them to be state based?
     [TestFixture]
     public class CopierTests
-    {   
+    {
         [Test]
         public void Copy_GivenSourceIsNull_ShouldThrowANE()
         {
             //--------------- Set up test pack --------------------
-          
+
             var destination = CreateDestination();
             //---------------- Execute Test ----------------------
             var exception = Assert.Throws<ArgumentNullException>(() => CreateCopier(null,destination));
@@ -33,7 +34,7 @@ namespace CharacterCopyKata_20190121.Tests
         public void Copy_GivenDestinationIsNull_ShouldThrowANE()
         {
             //--------------- Set up test pack --------------------
-          
+
             var source = CreateSource();
             //---------------- Execute Test ----------------------
             var exception = Assert.Throws<ArgumentNullException>(() => CreateCopier(source,null));
@@ -59,6 +60,21 @@ namespace CharacterCopyKata_20190121.Tests
             // --------------- Test Result ------------------------
             ExpectedDestinationCallForOneCharacter(destination, character);
             ExpectedDestinationCallForNewLine(destination,newLine);
+        }
+
+        [Test]
+        public void Learning()
+        {
+            //--------------- Set up test pack --------------------
+            var character = RandomValueGen.GetRandom<char>();
+            var newLine = '\n';
+
+            var writtenChars = new List<char>();
+            var sut = CreateCopier(c => writtenChars.Add(c), character, newLine);
+            //---------------- Execute Test ----------------------
+            sut.Copy();
+            // --------------- Test Result ------------------------
+            CollectionAssert.AreEqual(writtenChars, new []{ character });
         }
 
         [Test]
@@ -199,7 +215,7 @@ namespace CharacterCopyKata_20190121.Tests
         }
 
         private ISource CreateSourceThatReturnsThreeCharactersAndNewLine(
-            char firstCharacter, 
+            char firstCharacter,
             char secondCharacter,
             char thirdCharacter,
             char newLine
@@ -225,6 +241,17 @@ namespace CharacterCopyKata_20190121.Tests
         private static Copier CreateCopier(ISource source, IDestination destination)
         {
             return new Copier(source, destination);
+        }
+
+        private static Copier CreateCopier(Action<char> charSnapshot, params char[] sourceChars)
+        {
+            var source = Substitute.For<ISource>();
+            source.ReadChar().Returns(sourceChars.First(), sourceChars.Skip(1).ToArray());
+
+            var destination = Substitute.For<IDestination>();
+            destination.WriteChar(Arg.Do(charSnapshot));
+
+            return CreateCopier(source, destination);
         }
 
         private static IDestination CreateDestination()
