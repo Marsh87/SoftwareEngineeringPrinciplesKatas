@@ -18,6 +18,8 @@ namespace CharacterCopyKata_20190121
 
         public void Copy()
         {
+            // Unsure how refactor this method
+
             // TODO there are still 2 concepts in this code that are not fully encapsulated by the methods you refactored out, see below:
             var characterFromSource = GetCharacterFromSource(); // <== read
             while (CharacterIsNotNewLine(characterFromSource))
