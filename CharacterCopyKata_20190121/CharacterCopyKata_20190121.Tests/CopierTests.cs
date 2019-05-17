@@ -10,7 +10,6 @@ using PeanutButter.RandomGenerators;
 
 namespace CharacterCopyKata_20190121.Tests
 {
-    // TODO all of the asserts in this class are behaviour based, is there a way you can move them to be state based?
     [TestFixture]
     public class CopierTests
     {
@@ -52,22 +51,6 @@ namespace CharacterCopyKata_20190121.Tests
             //--------------- Set up test pack --------------------
             var character = RandomValueGen.GetRandom<char>();
             var newLine = '\n';
-            var source = CreateSourceThatReturnsOneCharacterAndNewLine(character,newLine);
-            var destination = CreateDestination();
-            var sut = CreateCopier(source, destination);
-            //---------------- Execute Test ----------------------
-            sut.Copy();
-            // --------------- Test Result ------------------------
-            ExpectedDestinationCallForOneCharacter(destination, character);
-            ExpectedDestinationCallForNewLine(destination,newLine);
-        }
-
-        [Test]
-        public void Learning()
-        {
-            //--------------- Set up test pack --------------------
-            var character = RandomValueGen.GetRandom<char>();
-            var newLine = '\n';
 
             var writtenChars = new List<char>();
             var sut = CreateCopier(c => writtenChars.Add(c), character, newLine);
@@ -84,14 +67,13 @@ namespace CharacterCopyKata_20190121.Tests
             var firstCharacter = RandomValueGen.GetRandom<char>();
             var secondCharacter = RandomValueGen.GetRandom<char>();
             var newLine = '\n';
-            var source = CreateSourceThatReturnsTwoCharactersAndNewLine(firstCharacter,secondCharacter,newLine);
-            var destination = CreateDestination();
-            var sut = CreateCopier(source, destination);
+
+            var writtenChars = new List<char>();
+            var sut = CreateCopier(c => writtenChars.Add(c), firstCharacter, secondCharacter, newLine);
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
-            ExpectedDestinationCallForTwoCharacters(destination, firstCharacter, secondCharacter);
-            ExpectedDestinationCallForNewLine(destination,newLine);
+            CollectionAssert.AreEqual(writtenChars, new[] { firstCharacter,secondCharacter });
         }
 
         [Test]
@@ -102,32 +84,13 @@ namespace CharacterCopyKata_20190121.Tests
             var secondCharacter = RandomValueGen.GetRandom<char>();
             var thirdCharacter = RandomValueGen.GetRandom<char>();
             var newLine = '\n';
-            var source = CreateSourceThatReturnsThreeCharactersAndNewLine(firstCharacter,secondCharacter,thirdCharacter,newLine);
-            var destination = CreateDestination();
-            var sut = CreateCopier(source, destination);
-            //---------------- Execute Test ----------------------
-            sut.Copy();
-            // --------------- Test Result ------------------------
-            ExpectedDestinationCallForThreeCharacters(destination,firstCharacter,secondCharacter,thirdCharacter);
-            ExpectedDestinationCallForNewLine(destination,newLine);
-        }
 
-        [Test]
-        public void Copy_GivenSourceReturnsThreeRandomCharactersBeforeNewLine_ShouldCallWriteCharWithAllCharactersBeforeNewLine()
-        {
-            //--------------- Set up test pack --------------------
-            var firstCharacter = RandomValueGen.GetRandom<char>();
-            var secondCharacter = RandomValueGen.GetRandom<char>();
-            var thirdCharacter = RandomValueGen.GetRandom<char>();
-            var newLine = '\n';
-            var source = CreateSourceThatReturnsThreeCharactersAndNewLine(firstCharacter, secondCharacter, thirdCharacter, newLine);
-            var destination = CreateDestination();
-            var sut = CreateCopier(source, destination);
+            var writtenChars = new List<char>();
+            var sut = CreateCopier(c => writtenChars.Add(c), firstCharacter, secondCharacter, thirdCharacter ,newLine);
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
-            ExpectedDestinationCallForThreeCharacters(destination, firstCharacter, secondCharacter, thirdCharacter);
-            ExpectedDestinationCallForNewLine(destination,newLine);
+            CollectionAssert.AreEqual(writtenChars, new[] { firstCharacter, secondCharacter, thirdCharacter });
         }
 
         [Test]
@@ -136,101 +99,19 @@ namespace CharacterCopyKata_20190121.Tests
             //--------------- Set up test pack --------------------
             var characterAfterNewLine = RandomValueGen.GetRandom<char>();
             var newLine = '\n';
-            var source = CreateSourceThatReturnsCharacterAfterNewLine(newLine,characterAfterNewLine);
-            var destination = CreateDestination();
-            var sut = CreateCopier(source, destination);
+
+            var writtenChars = new List<char>();
+            var sut = CreateCopier(c => writtenChars.Add(c), newLine, characterAfterNewLine);
             //---------------- Execute Test ----------------------
             sut.Copy();
             // --------------- Test Result ------------------------
-            ExpectedDestinationCallsThatWereNotCalledForCharacterAfterNewLine(destination, characterAfterNewLine,newLine);
+            CollectionAssert.IsEmpty(writtenChars);
         }
 
         private static string[] GetExceptionMessageParts(ArgumentNullException ex)
         {
             var exceptionMessageParts = ex.Message.Split(new string[] {"\r", "\n"}, StringSplitOptions.RemoveEmptyEntries);
             return exceptionMessageParts;
-        }
-
-        private static void ExpectedDestinationCallsThatWereNotCalledForCharacterAfterNewLine(
-            IDestination destination,
-            char characterAfterNewLine,
-            char newLine
-            )
-        {
-            ExpectedDestinationCallForNewLine(destination,newLine);
-            destination.DidNotReceive().WriteChar(characterAfterNewLine);
-        }
-
-        private static void ExpectedDestinationCallForNewLine(IDestination destination,char newLine)
-        {
-            destination.DidNotReceive().WriteChar(newLine);
-        }
-
-        private void ExpectedDestinationCallForOneCharacter(IDestination destination, char expectedCharacter)
-        {
-            destination.Received(1).WriteChar(expectedCharacter);
-        }
-
-        private static void ExpectedDestinationCallForTwoCharacters(
-            IDestination destination,
-            char expectedFirstCharacter,
-            char expectedSecondCharacter
-            )
-        {
-            destination.Received(1).WriteChar(expectedFirstCharacter);
-            destination.Received(1).WriteChar(expectedSecondCharacter);
-        }
-
-        private static void ExpectedDestinationCallForThreeCharacters(
-            IDestination destination,
-            char expectedFirstCharacter,
-            char expectedSecondCharacter,
-            char expectedThirdCharacter
-            )
-        {
-            destination.Received(1).WriteChar(expectedFirstCharacter);
-            destination.Received(1).WriteChar(expectedSecondCharacter);
-            destination.Received(1).WriteChar(expectedThirdCharacter);
-        }
-
-        private ISource CreateSourceThatReturnsOneCharacterAndNewLine(
-            char firstCharacter,
-            char newLine
-            )
-        {
-            var source = CreateSource();
-            source.ReadChar().Returns(firstCharacter,newLine);
-            return source;
-        }
-
-        private static ISource CreateSourceThatReturnsTwoCharactersAndNewLine(
-            char firstCharacter,
-            char secondCharacter,
-            char newLine
-            )
-        {
-            var source = CreateSource();
-            source.ReadChar().Returns(firstCharacter, secondCharacter, newLine);
-            return source;
-        }
-
-        private ISource CreateSourceThatReturnsThreeCharactersAndNewLine(
-            char firstCharacter,
-            char secondCharacter,
-            char thirdCharacter,
-            char newLine
-            )
-        {
-            var source = CreateSource();
-            source.ReadChar().Returns(firstCharacter,secondCharacter,thirdCharacter,newLine);
-            return source;
-        }
-
-        private ISource CreateSourceThatReturnsCharacterAfterNewLine(char newLine ,char characterAfterNewLine)
-        {
-            var source = CreateSource();
-            source.ReadChar().Returns(newLine, characterAfterNewLine);
-            return source;
         }
 
         private static ISource CreateSource()
